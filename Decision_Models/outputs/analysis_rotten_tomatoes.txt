@@ -1,0 +1,92 @@
+Paired comparison of jev-1.13.0 and gpt-6-luna
+dataset: rotten_tomatoes
+No API calls. The source CSV and probability file were not modified.
+
+Definitions
+delta = accuracy(jev) - accuracy(luna)
+d_i = correct_jev - correct_luna, each value in {-1, 0, 1}
+paired SE = sample sd(d, divisor n-1) / sqrt(n)
+95% CI = delta ± 1.96 * paired SE
+unpaired SE = sqrt(p_jev(1-p_jev)/n + p_luna(1-p_luna)/n), reported for comparison and not used in the tests
+McNemar = two-sided exact binomial test that the Jev-only count is Binomial(b+c, 0.5)
+TOST margin = ±0.02, alpha = 0.05
+equivalent when the 90% paired CI lies strictly inside (-margin, +margin)
+Brier_i = sum over labels of (p - one_hot_gold)^2
+log-loss_i = -log(p_gold), with p_gold floored at 1e-12. Lower is better.
+ECE uses 10 equal-width bins of the predicted-label probability. The last bin includes 1. Lower is better.
+Bootstrap: 10000 paired resamples of items, percentile 2.5 and 97.5, seed 0 restarted for the Brier, log-loss, and ECE intervals
+Wilcoxon: two-sided signed-rank test on the non-zero paired differences
+
+n = 1066
+2x2 of correctness. a = both right, b = only Jev, c = only Luna, d = both wrong.
+                  luna right   luna wrong
+jev right              962           35
+jev wrong               20           49
+a + b + c + d = 1066
+same label (agreement) = 1011
+same label and wrong (shared mistakes) = 49
+both wrong, different labels = 0
+
+Missing or invalid probabilities
+none
+CSV cells checked against the JSONL probability of the same label
+no mismatches above 1e-6
+
+Accuracy
+Jev     0.935272
+Luna    0.921201
+delta   0.014071
+paired SE   0.006947
+unpaired SE 0.011175
+95% paired CI [0.000455, 0.027687]
+Verdict: The 95% paired CI is entirely above 0, so Jev is ahead on accuracy.
+
+Exact McNemar p = 0.0581
+Verdict: The discordant items do not show a significant difference (exact McNemar p = 0.0581).
+Holm-adjusted McNemar p = 0.0581
+Verdict: This McNemar comparison does not survive Holm-Bonferroni at alpha 0.05 across the four datasets.
+
+TOST at margin ±0.02
+p_lower = 4.68e-07
+p_upper = 0.1967
+p_TOST  = 0.1967
+90% paired CI [0.002645, 0.025498]
+Verdict: Equivalence within ±0.02 is not established at alpha 0.05.
+
+Calibration. Lower ECE, Brier, and log-loss are better.
+ECE     Jev 0.035694   Luna 0.053565
+Brier   Jev 0.109618   Luna 0.132398
+log-loss Jev 0.502256   Luna 0.684662
+
+Per-item Brier difference (Jev - Luna)
+mean -0.022780   95% bootstrap CI [-0.040080, -0.005988]
+Wilcoxon p = 0.7769 on 395 non-zero differences
+Verdict: Mean Brier difference (Jev - Luna) is -0.022780; Jev is lower. The 95% bootstrap ci excludes 0, and the Wilcoxon test is not significant.
+Holm-adjusted Brier Wilcoxon p = 1.0000
+Verdict: This Brier Wilcoxon comparison does not survive Holm-Bonferroni at alpha 0.05 across the four datasets.
+
+Per-item log-loss difference (Jev - Luna)
+mean -0.182406   95% bootstrap CI [-0.350247, -0.028960]
+Wilcoxon p = 0.8799 on 395 non-zero differences
+Verdict: Mean log-loss difference (Jev - Luna) is -0.182406; Jev is lower. The 95% bootstrap ci excludes 0, and the Wilcoxon test is not significant.
+
+ECE difference (Jev - Luna)
+observed -0.017871   95% bootstrap CI [-0.029456, -0.005431]
+Verdict: ECE difference (Jev - Luna) is -0.017871. The CI excludes 0; Jev has the lower ECE.
+
+Confusion matrix, jev-1.13.0. Rows are gold, columns are the prediction.
+gold\pred  negative  positive
+ negative       501        32
+ positive        37       496
+
+Confusion matrix, gpt-6-luna. Rows are gold, columns are the prediction.
+gold\pred  negative  positive
+ negative       505        28
+ positive        56       477
+
+Most common shared wrong labels (gold -> the label both models predicted)
+positive -> negative: 31
+negative -> positive: 18
+
+Most common both-wrong items with different labels (gold | Jev | Luna)
+none

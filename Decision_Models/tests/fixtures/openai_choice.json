@@ -1,0 +1,16 @@
+{
+  "model": "gpt-6-luna",
+  "answers": [
+    {
+      "type": "choice",
+      "name": "answer",
+      "choice": "negative",
+      "probabilities": [
+        {"value": "negative", "probability": 0.93},
+        {"value": "positive", "probability": 0.07}
+      ],
+      "confidence": 0.9
+    }
+  ],
+  "usage": {"input_tokens": 80, "output_tokens": 0}
+}

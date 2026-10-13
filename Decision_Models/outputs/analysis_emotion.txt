@@ -1,0 +1,138 @@
+Paired comparison of jev-1.13.0 and gpt-6-luna
+dataset: emotion
+No API calls. The source CSV and probability file were not modified.
+
+Definitions
+delta = accuracy(jev) - accuracy(luna)
+d_i = correct_jev - correct_luna, each value in {-1, 0, 1}
+paired SE = sample sd(d, divisor n-1) / sqrt(n)
+95% CI = delta ± 1.96 * paired SE
+unpaired SE = sqrt(p_jev(1-p_jev)/n + p_luna(1-p_luna)/n), reported for comparison and not used in the tests
+McNemar = two-sided exact binomial test that the Jev-only count is Binomial(b+c, 0.5)
+TOST margin = ±0.02, alpha = 0.05
+equivalent when the 90% paired CI lies strictly inside (-margin, +margin)
+Brier_i = sum over labels of (p - one_hot_gold)^2
+log-loss_i = -log(p_gold), with p_gold floored at 1e-12. Lower is better.
+ECE uses 10 equal-width bins of the predicted-label probability. The last bin includes 1. Lower is better.
+Bootstrap: 10000 paired resamples of items, percentile 2.5 and 97.5, seed 0 restarted for the Brier, log-loss, and ECE intervals
+Wilcoxon: two-sided signed-rank test on the non-zero paired differences
+
+n = 2000
+2x2 of correctness. a = both right, b = only Jev, c = only Luna, d = both wrong.
+                  luna right   luna wrong
+jev right             1064          111
+jev wrong               68          757
+a + b + c + d = 2000
+same label (agreement) = 1726
+same label and wrong (shared mistakes) = 662
+both wrong, different labels = 95
+
+Missing or invalid probabilities
+none
+CSV cells checked against the JSONL probability of the same label
+no mismatches above 1e-6
+
+Accuracy
+Jev     0.587500
+Luna    0.566000
+delta   0.021500
+paired SE   0.006674
+unpaired SE 0.015620
+95% paired CI [0.008419, 0.034581]
+Verdict: The 95% paired CI is entirely above 0, so Jev is ahead on accuracy.
+
+Exact McNemar p = 0.0016
+Verdict: The discordant items favor Jev (exact McNemar p = 0.0016).
+Holm-adjusted McNemar p = 0.0049
+Verdict: This McNemar comparison survives Holm-Bonferroni at alpha 0.05 across the four datasets.
+
+TOST at margin ±0.02
+p_lower = 2.51e-10
+p_upper = 0.5889
+p_TOST  = 0.5889
+90% paired CI [0.010522, 0.032478]
+Verdict: Equivalence within ±0.02 is not established at alpha 0.05.
+
+Calibration. Lower ECE, Brier, and log-loss are better.
+ECE     Jev 0.275095   Luna 0.295365
+Brier   Jev 0.669206   Luna 0.709728
+log-loss Jev 4.991325   Luna 4.942980
+
+Per-item Brier difference (Jev - Luna)
+mean -0.040523   95% bootstrap CI [-0.056002, -0.025062]
+Wilcoxon p = 1.41e-07 on 1556 non-zero differences
+Verdict: Mean Brier difference (Jev - Luna) is -0.040523; Jev is lower. The 95% bootstrap ci excludes 0, and the Wilcoxon test is significant.
+Holm-adjusted Brier Wilcoxon p = 5.63e-07
+Verdict: This Brier Wilcoxon comparison survives Holm-Bonferroni at alpha 0.05 across the four datasets.
+
+Per-item log-loss difference (Jev - Luna)
+mean 0.048346   95% bootstrap CI [-0.240278, 0.335241]
+Wilcoxon p = 1.30e-06 on 1347 non-zero differences
+Verdict: Mean log-loss difference (Jev - Luna) is 0.048346; gpt-6-luna is lower. The 95% bootstrap ci includes 0, and the Wilcoxon test is significant.
+
+ECE difference (Jev - Luna)
+observed -0.020270   95% bootstrap CI [-0.034170, -0.006065]
+Verdict: ECE difference (Jev - Luna) is -0.020270. The CI excludes 0; Jev has the lower ECE.
+
+Confusion matrix, jev-1.13.0. Rows are gold, columns are the prediction.
+gold\pred   sadness       joy      love     anger      fear  surprise
+  sadness       410        50        15        39        63         4
+      joy       108       445        59        37        32        14
+     love        41        55        42         6        11         4
+    anger        74        23        14       132        25         7
+     fear        49        24         3        13       122        13
+ surprise        13        17         2         1         9        24
+
+Confusion matrix, gpt-6-luna. Rows are gold, columns are the prediction.
+gold\pred   sadness       joy      love     anger      fear  surprise
+  sadness       391        53        20        34        78         5
+      joy       108       419        66        30        48        24
+     love        44        47        43         6        13         6
+    anger        72        25        10       119        39        10
+     fear        42        17         3        10       142        10
+ surprise        11        18         2         2        15        18
+
+Most common shared wrong labels (gold -> the label both models predicted)
+joy -> sadness: 91
+anger -> sadness: 60
+sadness -> fear: 59
+joy -> love: 50
+sadness -> joy: 45
+love -> joy: 40
+fear -> sadness: 37
+love -> sadness: 36
+joy -> fear: 28
+sadness -> anger: 27
+joy -> anger: 24
+anger -> fear: 23
+anger -> joy: 19
+fear -> joy: 15
+surprise -> joy: 15
+sadness -> love: 13
+joy -> surprise: 12
+love -> fear: 10
+fear -> anger: 9
+surprise -> sadness: 9
+anger -> love: 7
+surprise -> fear: 7
+anger -> surprise: 5
+fear -> surprise: 5
+love -> anger: 5
+love -> surprise: 3
+sadness -> surprise: 3
+fear -> love: 2
+surprise -> love: 2
+surprise -> anger: 1
+
+Most common both-wrong items with different labels (gold | Jev | Luna)
+joy | sadness | fear: 9
+anger | sadness | fear: 8
+joy | anger | sadness: 7
+love | joy | sadness: 5
+sadness | anger | fear: 4
+anger | love | joy: 3
+fear | joy | sadness: 3
+joy | sadness | surprise: 3
+surprise | sadness | fear: 3
+anger | joy | surprise: 2
+... 38 more patterns

@@ -1,0 +1,7 @@
+{
+  "model": "jev-1.13.0",
+  "answers": {
+    "answer": {"type": "choice", "choice": "negative", "confidence": 0.5, "note": "Bearer sk-test-SHOULD-NOT-LEAK"}
+  },
+  "usage": {"input_tokens": 10}
+}

@@ -1,0 +1,98 @@
+Paired comparison of jev-1.13.0 and gpt-6-luna
+dataset: financial_phrasebank
+No API calls. The source CSV and probability file were not modified.
+
+Definitions
+delta = accuracy(jev) - accuracy(luna)
+d_i = correct_jev - correct_luna, each value in {-1, 0, 1}
+paired SE = sample sd(d, divisor n-1) / sqrt(n)
+95% CI = delta ± 1.96 * paired SE
+unpaired SE = sqrt(p_jev(1-p_jev)/n + p_luna(1-p_luna)/n), reported for comparison and not used in the tests
+McNemar = two-sided exact binomial test that the Jev-only count is Binomial(b+c, 0.5)
+TOST margin = ±0.02, alpha = 0.05
+equivalent when the 90% paired CI lies strictly inside (-margin, +margin)
+Brier_i = sum over labels of (p - one_hot_gold)^2
+log-loss_i = -log(p_gold), with p_gold floored at 1e-12. Lower is better.
+ECE uses 10 equal-width bins of the predicted-label probability. The last bin includes 1. Lower is better.
+Bootstrap: 10000 paired resamples of items, percentile 2.5 and 97.5, seed 0 restarted for the Brier, log-loss, and ECE intervals
+Wilcoxon: two-sided signed-rank test on the non-zero paired differences
+
+n = 970
+2x2 of correctness. a = both right, b = only Jev, c = only Luna, d = both wrong.
+                  luna right   luna wrong
+jev right              677           37
+jev wrong               78          178
+a + b + c + d = 970
+same label (agreement) = 852
+same label and wrong (shared mistakes) = 175
+both wrong, different labels = 3
+
+Missing or invalid probabilities
+none
+CSV cells checked against the JSONL probability of the same label
+no mismatches above 1e-6
+
+Accuracy
+Jev     0.736082
+Luna    0.778351
+delta   -0.042268
+paired SE   0.010978
+unpaired SE 0.019446
+95% paired CI [-0.063784, -0.020752]
+Verdict: The 95% paired CI is entirely below 0, so gpt-6-luna is ahead on accuracy.
+
+Exact McNemar p = 0.0002
+Verdict: The discordant items favor gpt-6-luna (exact McNemar p = 0.0002).
+Holm-adjusted McNemar p = 0.0007
+Verdict: This McNemar comparison survives Holm-Bonferroni at alpha 0.05 across the four datasets.
+
+TOST at margin ±0.02
+p_lower = 0.9787
+p_upper = 7.04e-09
+p_TOST  = 0.9787
+90% paired CI [-0.060324, -0.024212]
+Verdict: Equivalence within ±0.02 is not established at alpha 0.05.
+
+Calibration. Lower ECE, Brier, and log-loss are better.
+ECE     Jev 0.136340   Luna 0.153959
+Brier   Jev 0.383544   Luna 0.366720
+log-loss Jev 0.876765   Luna 1.565330
+
+Per-item Brier difference (Jev - Luna)
+mean 0.016824   95% bootstrap CI [-0.009473, 0.042886]
+Wilcoxon p = 3.13e-06 on 721 non-zero differences
+Verdict: Mean Brier difference (Jev - Luna) is 0.016824; gpt-6-luna is lower. The 95% bootstrap ci includes 0, and the Wilcoxon test is significant.
+Holm-adjusted Brier Wilcoxon p = 9.39e-06
+Verdict: This Brier Wilcoxon comparison survives Holm-Bonferroni at alpha 0.05 across the four datasets.
+
+Per-item log-loss difference (Jev - Luna)
+mean -0.688565   95% bootstrap CI [-0.991711, -0.404612]
+Wilcoxon p = 0.0005 on 717 non-zero differences
+Verdict: Mean log-loss difference (Jev - Luna) is -0.688565; Jev is lower. The 95% bootstrap ci excludes 0, and the Wilcoxon test is significant.
+
+ECE difference (Jev - Luna)
+observed -0.017619   95% bootstrap CI [-0.038680, 0.003351]
+Verdict: ECE difference (Jev - Luna) is -0.017619. The CI includes 0; the CI includes 0.
+
+Confusion matrix, jev-1.13.0. Rows are gold, columns are the prediction.
+gold\pred  negative   neutral  positive
+ negative       122         2         1
+  neutral        49       334       182
+ positive         4        18       258
+
+Confusion matrix, gpt-6-luna. Rows are gold, columns are the prediction.
+gold\pred  negative   neutral  positive
+ negative       118         7         0
+  neutral        43       388       134
+ positive         4        27       249
+
+Most common shared wrong labels (gold -> the label both models predicted)
+neutral -> positive: 123
+neutral -> negative: 33
+positive -> neutral: 14
+positive -> negative: 3
+negative -> neutral: 2
+
+Most common both-wrong items with different labels (gold | Jev | Luna)
+neutral | positive | negative: 2
+negative | positive | neutral: 1

@@ -1,0 +1,7 @@
+{
+  "model": "gpt-6-luna",
+  "answers": [
+    {"type": "refusal", "name": "answer"}
+  ],
+  "usage": {"input_tokens": 40}
+}

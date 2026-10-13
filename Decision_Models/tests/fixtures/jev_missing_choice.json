@@ -1,0 +1,11 @@
+{
+  "model": "jev-1.13.0",
+  "answers": {
+    "answer": {
+      "type": "choice",
+      "probabilities": {"negative": 0.7, "positive": 0.3},
+      "confidence": 0.4
+    }
+  },
+  "usage": {"input_tokens": 15}
+}

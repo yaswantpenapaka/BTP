@@ -1,0 +1,21 @@
+# Keys stay in the terminal session. Never commit them.
+.env
+.env.*
+*.env
+
+# Local environment and caches.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.cache/
+huggingface/
+datasets_cache/
+data/
+logs/
+*.arrow
+
+# Result CSVs, analysis reports, and probability JSONL files are tracked.
+# Do not ignore outputs/.

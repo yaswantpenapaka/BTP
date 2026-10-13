@@ -1,0 +1,5 @@
+# This repository publishes only the decision-model evaluation.
+# Other local BTP files (cluster notes, model weights, PDFs) stay untracked.
+/*
+!/.gitignore
+!/Decision_Models/
