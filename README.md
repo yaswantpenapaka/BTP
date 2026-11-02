@@ -1,4 +1,4 @@
-﻿# Statistical evaluation of LLM decision models
+# Statistical evaluation of LLM decision models
 **B.Tech Project, Department of CSE, IIT Guwahati**
 
 Two decision models can post similar accuracy and still disagree on many individual items, or put very different probabilities on the same options. Accuracy alone therefore cannot tell us whether models are interchangeable. This project evaluates LLM decision models **pairwise**: label agreement, Cohen's kappa, rank/linear correlation of option probabilities, probability-space distances (TVD, JSD, KL), and McNemar's paired test, reported next to gold accuracy.
@@ -8,9 +8,9 @@ Two decision models can post similar accuracy and still disagree on many individ
 |---|---|---|
 | `jev` | Jev (`jev-1.13.0`) | API |
 | `luna` | Luna (`gpt-6-luna`, OpenAI Decisions) | API |
-| `anyjev_l0` | AnyJev L0 on Qwen3-4B | open weights, H100 cluster (vLLM) |
-| `anyjev_l0_qwen3_8b` | AnyJev L0 on Qwen3-8B | open weights, H100 cluster (vLLM) |
-| `semif` | SemIf (direct) | open weights, H100 cluster |
+| `anyjev_l0` | AnyJev L0 on Qwen3-4B | open weights, gpu-A100 cluster (vLLM) |
+| `anyjev_l0_qwen3_8b` | AnyJev L0 on Qwen3-8B | open weights, gpu-A100 cluster (vLLM) |
+| `semif` | SemIf (direct) | open weights, gpu-A100 cluster |
 
 Laya was started but is **deferred / incomplete** (only a partial OpenDecisions run exists) and is excluded from the headline tables.
 
@@ -61,7 +61,7 @@ Decision_Models/            earlier study: Jev vs Luna on SST-2, Rotten Tomatoes
 Datasets/
   scripts/split_datasets.py split generation
   JevBench/org/  FastDecisions/  OpenDecisions/   splits, manifests, SPLIT_README.md
-cluster/                    SemIf runner + H100 SLURM submit script
+cluster/                    SemIf runner + SLURM submit script (legacy filename `submit_semif_direct_h100.sh`; targets gpu-A100)
 docs/                       build notes for the open-weight cluster runs
 job_results/*/SUMMARY.md    summaries of the successful cluster jobs
 ```
@@ -77,7 +77,7 @@ python -m eval.analyze               # rebuild matrices in eval/outputs/analysis
 python -m pytest eval/tests
 python ..\Datasets\scripts\split_datasets.py   # regenerate the 70/15/15 splits
 ```
-Open-weight models (AnyJev L0, SemIf) were run on an H100 cluster; see `cluster/` and `docs/`.
+Open-weight models (AnyJev L0, SemIf) were run on the **gpu-A100** partition (jobs 5473, 5539, 5558; H100 was rejected for the btech QoS); see `cluster/` and `docs/`.
 
 ## Security
 API keys are read from environment variables only. `.env` files, model checkpoints, and virtual environments are git-ignored and never committed.

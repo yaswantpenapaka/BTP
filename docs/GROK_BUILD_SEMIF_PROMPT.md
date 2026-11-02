@@ -1,3 +1,5 @@
+> **Note (actual run):** this is the original build prompt. gpu-H100 was rejected (Invalid qos for btech); the SemIf job (5539) actually ran on **gpu-A100**. The script name `submit_semif_direct_h100.sh` is legacy.
+
 # Grok Build — CSE Cluster Prompt (BTP / SemIf direct)
 
 **Read this file end-to-end before doing anything. Obey it strictly. Do not invent methods, prompts, formulas, or APIs.**
