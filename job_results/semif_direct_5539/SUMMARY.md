@@ -1,0 +1,25 @@
+# semif_direct job 5539
+
+- partition: gpu-A100
+- H100: rejected before submit (AllowQos=faculty,officer,h100; account QOS is btech only). Fallback gpu-A100.
+- smoke: no (examples verify only under $TMPDIR)
+- scored this job: opendecisions, fastdecisions. jevbench file was left in place (resume by item_id; dataset not passed).
+- scorer exit: 0
+- SIF: /userhome/btech/p.yaswant/containers/vllm-openai.sif
+- SIF tag: docker://vllm/vllm-openai:v0.29.0
+- runtime: reused vLLM SIF with a user venv (torch==2.10.0+cu128, transformers==5.17.0). Image itself shipped torch 2.13.0+cu130 and transformers 5.16.1, which do not match SemIf's pins.
+- install: /userhome/btech/p.yaswant/BTP/semif-venv  (pip install torch from the cu128 index, then pinned requirements, then pip install -e SemIf --no-deps)
+- SemIf commit: 23cf1f39fc9534fe81437200959b6dfc7106e45a
+- model: /userhome/btech/p.yaswant/BTP/models/Qwen3.5-4B
+- revision: 851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+- mode: semif-score --mode direct
+- questions: one SemIf row per question, id item_id::question.name; merged with eval.records.build_row
+- unsupported option counts (not sent to SemIf): 14 {'28': 14}
+- fastdecisions unsupported option counts: 14 {'28': 14}
+- other question errors: 0
+- line counts:
+- semif__jevbench.jsonl: 335
+- semif__opendecisions.jsonl: 2352
+- semif__fastdecisions.jsonl: 255
+- problems:
+- none

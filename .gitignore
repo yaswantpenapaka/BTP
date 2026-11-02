@@ -1,5 +1,41 @@
-# This repository publishes only the decision-model evaluation.
-# Other local BTP files (cluster notes, model weights, PDFs) stay untracked.
+﻿# Publish: Decision_Models, Datasets (splits), cluster, docs, selected job summaries, README.
 /*
 !/.gitignore
+!/README.md
 !/Decision_Models/
+!/Datasets/
+!/cluster/
+!/docs/
+!/job_results/
+
+# Datasets: no venv, no third-party JevBench raw dump
+/Datasets/.venv/
+/Datasets/JevBench/raw/
+
+# job_results: only SUMMARY.md of successful jobs
+/job_results/*
+!/job_results/anyjev_l0_5473/
+!/job_results/anyjev_l0_qwen3_8b_5558/
+!/job_results/semif_direct_5539/
+/job_results/*/*
+!/job_results/*/SUMMARY.md
+
+# Weights, secrets, caches
+Decision_Models/checkpoints/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+*.env
+*.bak
+*.zip
+*.pdf
+huggingface/
+.cache/
+
+# Noisy Laya logs (Laya deferred)
+Decision_Models/eval/outputs/laya_*
+Decision_Models/eval/outputs/smoke_laya/
+Decision_Models/eval/outputs/laya_base_fallback/

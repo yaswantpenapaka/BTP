@@ -1,3 +1,5 @@
+﻿> **BTP update:** the main B.Tech Project evaluation (JevBench, OpenDecisions, Fast Decisions; Jev, Luna, AnyJev L0, SemIf) is in [eval/](eval/README.md). See the [root README](../README.md) for the overview and results. The earlier classification study below is kept as is.
+
 # Decision models: Jev vs OpenAI Decisions
 
 This folder compares two decision APIs on four public classification datasets. The question is whether a small gap in accuracy and cost is enough to treat the models as interchangeable. Agreement, calibration, and paired tests are part of the answer. Similar accuracy is reported next to those other quantities rather than used as a substitute for them.
@@ -81,7 +83,7 @@ python run.py --dataset sst2 --model both --limit 20
 
 A run without `--limit` prints the item count and an estimated cost, then waits until the terminal receives exactly `yes`. The estimate assumes 1000 input tokens per call. It is an estimate, not a quote. If stdin is not a terminal, the run stops and sends nothing. The Hugging Face split is downloaded and checked before that prompt and before any paid call. The loader stops if the split length or the Hub label names differ from `tasks.py`.
 
-The emotion option descriptions, and the financial instruction, still carry TODO notes in `tasks.py`. The emotion descriptions are one line per label. The paper's released code passes no description for those labels. The financial instruction in this project has no backticks around the word sentence. The paper's code puts backticks around `` `sentence` ``. The runs below used the frozen text in `tasks.py`. Check that text against arXiv:2609.37647 (Deußer, Sparrenberg & Sifa, "Evaluating and Benchmarking the System One Model Jev") before treating the emotion and financial numbers as a direct copy of the paper. Do not change the strings between runs once they are confirmed.
+The emotion option descriptions, and the financial instruction, still carry TODO notes in `tasks.py`. The emotion descriptions are one line per label. The paper's released code passes no description for those labels. The financial instruction in this project has no backticks around the word sentence. The paper's code puts backticks around `` `sentence` ``. The runs below used the frozen text in `tasks.py`. Check that text against arXiv:2609.37647 (DeuÃŸer, Sparrenberg & Sifa, "Evaluating and Benchmarking the System One Model Jev") before treating the emotion and financial numbers as a direct copy of the paper. Do not change the strings between runs once they are confirmed.
 
 ```powershell
 python run.py --dataset sst2 --model both
@@ -117,7 +119,7 @@ python analyze.py --margin 0.02
 
 For each dataset the report contains:
 
-- the 2×2 counts: both right, only Jev right, only Luna right, both wrong
+- the 2Ã—2 counts: both right, only Jev right, only Luna right, both wrong
 - agreement, shared mistakes, and both-wrong items with different labels
 - accuracy gap `delta = accuracy(Jev) - accuracy(gpt-6-luna)`
 - Miller paired 95% CI, using the sample standard deviation of the per-item correctness difference, and the unpaired SE beside it
@@ -128,20 +130,20 @@ For each dataset the report contains:
 - Wilcoxon signed-rank tests on the per-item Brier and log-loss differences
 - confusion matrices and the most common shared wrong labels
 
-Across the four datasets, Holm–Bonferroni is applied separately to the four McNemar p-values and to the four Brier Wilcoxon p-values.
+Across the four datasets, Holmâ€“Bonferroni is applied separately to the four McNemar p-values and to the four Brier Wilcoxon p-values.
 
 ## Results already in `outputs/`
 
 These are the completed full splits. Refusal rate, missing probabilities, and missing token counts are 0 on every model and dataset. `agree` is the share of items where both models gave the same label.
 
-| Dataset | n | Jev accuracy | gpt-6-luna accuracy | delta | 95% paired CI | McNemar p | Equivalent at ±0.02 | Agreement |
+| Dataset | n | Jev accuracy | gpt-6-luna accuracy | delta | 95% paired CI | McNemar p | Equivalent at Â±0.02 | Agreement |
 |---|---:|---:|---:|---:|---|---:|---|---:|
 | SST-2 | 872 | 0.9633 | 0.9461 | +0.0172 | [0.0047, 0.0297] | 0.0107 | no | 0.9644 |
 | Rotten Tomatoes | 1066 | 0.9353 | 0.9212 | +0.0141 | [0.0005, 0.0277] | 0.0581 | no | 0.9484 |
 | Emotion | 2000 | 0.5875 | 0.5660 | +0.0215 | [0.0084, 0.0346] | 0.0016 | no | 0.8630 |
-| Financial PhraseBank | 970 | 0.7361 | 0.7784 | −0.0423 | [−0.0638, −0.0208] | 0.0002 | no | 0.8784 |
+| Financial PhraseBank | 970 | 0.7361 | 0.7784 | âˆ’0.0423 | [âˆ’0.0638, âˆ’0.0208] | 0.0002 | no | 0.8784 |
 
-Holm–Bonferroni at α = 0.05 keeps the McNemar results for SST-2, Emotion, and Financial PhraseBank. Rotten Tomatoes does not survive: the exact p-value is 0.058, while the paired normal interval only just clears zero.
+Holmâ€“Bonferroni at Î± = 0.05 keeps the McNemar results for SST-2, Emotion, and Financial PhraseBank. Rotten Tomatoes does not survive: the exact p-value is 0.058, while the paired normal interval only just clears zero.
 
 Jev's ECE is lower on all four datasets. The ECE bootstrap interval excludes zero on SST-2, Rotten Tomatoes, and Emotion. On Financial PhraseBank it includes zero. The Brier Wilcoxon test survives Holm on Emotion (Jev lower) and on Financial PhraseBank (gpt-6-luna lower). The two sentiment Brier tests do not. On Emotion the largest shared mistakes are joy predicted as sadness (91), anger predicted as sadness (60), and sadness predicted as fear (59). On Financial PhraseBank the largest shared mistake is neutral predicted as positive (123).
 
@@ -172,7 +174,7 @@ Rows: `n`, `accuracy`, `macro_f1`, `ece_10bin`, `brier`, `refusal_rate`, `mean_l
 
 Errors and refusals count as wrong for accuracy and macro-F1. ECE uses 10 equal-width bins on `prob_pred`, and the last bin includes 1.0. Brier is the mean squared error of the full option distribution against a one-hot gold label. `excluded_no_probs` is the number of rows left out of both ECE and Brier because the full distribution did not come back. `input_tokens_missing` is the number of blank token cells. `total_cost_usd` does not include those rows.
 
-`outputs/analysis_summary.csv` has one row per dataset with the paired statistics. `outputs/analysis_<dataset>.txt` is the readable report, including the 2×2 table, the confusion matrices, and a one-line verdict for each test.
+`outputs/analysis_summary.csv` has one row per dataset with the paired statistics. `outputs/analysis_<dataset>.txt` is the readable report, including the 2Ã—2 table, the confusion matrices, and a one-line verdict for each test.
 
 ## Resume, retries, and locks
 
@@ -191,3 +193,4 @@ Logs go to `logs/run_<timestamp>.log`. Schema mismatches also save the raw respo
 Committed: the Python project, the tests, this README, every file in `outputs/` (the four result CSVs, the probability JSONL files, `analysis_summary.csv`, and the four analysis reports).
 
 Ignored, because they are caches or local secrets: `.env`, `.venv/`, `__pycache__/`, the Hugging Face download under `data/`, Arrow and dataset caches, and `logs/`. The root of the BTP repository ignores every other local folder, so this remote contains `Decision_Models` only.
+

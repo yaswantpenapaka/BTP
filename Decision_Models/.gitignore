@@ -19,3 +19,7 @@ logs/
 
 # Result CSVs, analysis reports, and probability JSONL files are tracked.
 # Do not ignore outputs/.
+
+# Model weights
+checkpoints/
+*.bak

@@ -1,0 +1,6 @@
+﻿Mi \ Mj,jev,luna,anyjev_l0,semif,anyjev_l0_qwen3_8b
+jev,—,b=223; c=184; p=0.0596204 (chi2_cc),b=624; c=93; p=3.40621e-87 (chi2_cc),b=441; c=72; p=2.32293e-59 (chi2_cc),b=584; c=86; p=3.6454e-82 (chi2_cc)
+luna,b=184; c=223; p=0.0596204 (chi2_cc),—,b=643; c=151; p=5.33663e-68 (chi2_cc),b=462; c=131; p=7.76531e-42 (chi2_cc),b=600; c=142; p=3.5956e-63 (chi2_cc)
+anyjev_l0,b=93; c=624; p=3.40621e-87 (chi2_cc),b=151; c=643; p=5.33663e-68 (chi2_cc),—,b=210; c=372; p=2.49493e-11 (chi2_cc),b=182; c=215; p=0.108266 (chi2_cc)
+semif,b=72; c=441; p=2.32293e-59 (chi2_cc),b=131; c=462; p=7.76531e-42 (chi2_cc),b=372; c=210; p=2.49493e-11 (chi2_cc),—,b=339; c=210; p=4.684e-08 (chi2_cc)
+anyjev_l0_qwen3_8b,b=86; c=584; p=3.6454e-82 (chi2_cc),b=142; c=600; p=3.5956e-63 (chi2_cc),b=215; c=182; p=0.108266 (chi2_cc),b=210; c=339; p=4.684e-08 (chi2_cc),—
