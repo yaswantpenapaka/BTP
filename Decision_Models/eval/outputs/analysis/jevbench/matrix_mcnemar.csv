@@ -1,6 +1,7 @@
-﻿Mi \ Mj,jev,luna,anyjev_l0,semif,anyjev_l0_qwen3_8b
-jev,—,b=8; c=3; p=0.226562 (exact),b=33; c=2; p=3.95886e-07 (chi2_cc),b=17; c=4; p=0.00719738 (exact),b=37; c=6; p=4.76318e-06 (chi2_cc)
-luna,b=3; c=8; p=0.226562 (exact),—,b=32; c=6; p=5.00196e-05 (chi2_cc),b=16; c=8; p=0.15159 (exact),b=35; c=9; p=0.000163974 (chi2_cc)
-anyjev_l0,b=2; c=33; p=3.95886e-07 (chi2_cc),b=6; c=32; p=5.00196e-05 (chi2_cc),—,b=8; c=26; p=0.00355146 (chi2_cc),b=8; c=8; p=1 (exact)
-semif,b=4; c=17; p=0.00719738 (exact),b=8; c=16; p=0.15159 (exact),b=26; c=8; p=0.00355146 (chi2_cc),—,b=29; c=11; p=0.00718952 (chi2_cc)
-anyjev_l0_qwen3_8b,b=6; c=37; p=4.76318e-06 (chi2_cc),b=9; c=35; p=0.000163974 (chi2_cc),b=8; c=8; p=1 (exact),b=11; c=29; p=0.00718952 (chi2_cc),—
+﻿Mi \ Mj,jev,luna,anyjev_l0,semif,anyjev_l0_qwen3_8b,laya
+jev,—,b=8; c=3; p=0.226562 (exact),b=33; c=2; p=3.95886e-07 (chi2_cc),b=17; c=4; p=0.00719738 (exact),b=37; c=6; p=4.76318e-06 (chi2_cc),b=28; c=6; p=0.000316423 (chi2_cc)
+luna,b=3; c=8; p=0.226562 (exact),—,b=32; c=6; p=5.00196e-05 (chi2_cc),b=16; c=8; p=0.15159 (exact),b=35; c=9; p=0.000163974 (chi2_cc),b=24; c=7; p=0.00405714 (chi2_cc)
+anyjev_l0,b=2; c=33; p=3.95886e-07 (chi2_cc),b=6; c=32; p=5.00196e-05 (chi2_cc),—,b=8; c=26; p=0.00355146 (chi2_cc),b=8; c=8; p=1 (exact),b=15; c=24; p=0.200185 (chi2_cc)
+semif,b=4; c=17; p=0.00719738 (exact),b=8; c=16; p=0.15159 (exact),b=26; c=8; p=0.00355146 (chi2_cc),—,b=29; c=11; p=0.00718952 (chi2_cc),b=27; c=18; p=0.233038 (chi2_cc)
+anyjev_l0_qwen3_8b,b=6; c=37; p=4.76318e-06 (chi2_cc),b=9; c=35; p=0.000163974 (chi2_cc),b=8; c=8; p=1 (exact),b=11; c=29; p=0.00718952 (chi2_cc),—,b=16; c=25; p=0.211522 (chi2_cc)
+laya,b=6; c=28; p=0.000316423 (chi2_cc),b=7; c=24; p=0.00405714 (chi2_cc),b=24; c=15; p=0.200185 (chi2_cc),b=18; c=27; p=0.233038 (chi2_cc),b=25; c=16; p=0.211522 (chi2_cc),—

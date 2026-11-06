@@ -1,6 +1,7 @@
-﻿Mi \ Mj,jev,luna,anyjev_l0,semif,anyjev_l0_qwen3_8b
-jev,—,14,16,12,11
-luna,15,—,16,15,18
-anyjev_l0,23,20,—,15,16
-semif,21,21,17,—,17
-anyjev_l0_qwen3_8b,16,20,14,13,—
+﻿Mi \ Mj,jev,luna,anyjev_l0,semif,anyjev_l0_qwen3_8b,laya
+jev,—,14,16,12,11,22
+luna,15,—,16,15,18,28
+anyjev_l0,23,20,—,15,16,29
+semif,21,21,17,—,17,30
+anyjev_l0_qwen3_8b,16,20,14,13,—,28
+laya,27,32,30,29,31,—

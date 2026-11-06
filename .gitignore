@@ -1,31 +1,46 @@
-﻿# Publish: Decision_Models, Datasets (splits), cluster, docs, selected job summaries, README.
+﻿# Publish only decision-model work: Decision_Models, Datasets (splits),
+# cluster, job_results (SUMMARY.md of successful jobs), README.
 /*
 !/.gitignore
 !/README.md
 !/Decision_Models/
 !/Datasets/
 !/cluster/
-!/docs/
 !/job_results/
+
+# Local-only clutter (papers, drafts, build prompts, scratch)
+/_local_notes/
+/laya_release/
+/laya_release.zip
 
 # Datasets: no venv, no third-party JevBench raw dump
 /Datasets/.venv/
 /Datasets/JevBench/raw/
 
-# job_results: only SUMMARY.md of successful jobs
+# job_results: only SUMMARY.md of successful BTP jobs
 /job_results/*
 !/job_results/anyjev_l0_5473/
 !/job_results/anyjev_l0_qwen3_8b_5558/
 !/job_results/semif_direct_5539/
+!/job_results/laya_5894/
 /job_results/*/*
 !/job_results/*/SUMMARY.md
 
-# Weights, secrets, caches
+# Weights, secrets, caches, noise
 Decision_Models/checkpoints/
+Decision_Models/.venv/
+Decision_Models/data/
+Decision_Models/logs/
+Decision_Models/eval/outputs.zip
+Decision_Models/eval/outputs/laya_*
+Decision_Models/eval/outputs/smoke_laya/
+Decision_Models/eval/outputs/laya_base_fallback/
 .venv/
 venv/
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.mypy_cache/
 .env
 .env.*
 *.env
@@ -34,8 +49,3 @@ __pycache__/
 *.pdf
 huggingface/
 .cache/
-
-# Noisy Laya logs (Laya deferred)
-Decision_Models/eval/outputs/laya_*
-Decision_Models/eval/outputs/smoke_laya/
-Decision_Models/eval/outputs/laya_base_fallback/

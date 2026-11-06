@@ -4,13 +4,16 @@ jevbench,luna,335,0,0,285,0.929825
 jevbench,anyjev_l0,335,0,0,285,0.838596
 jevbench,semif,335,0,0,285,0.901754
 jevbench,anyjev_l0_qwen3_8b,335,0,0,285,0.838596
+jevbench,laya,335,0,0,285,0.870175
 opendecisions,jev,2352,0,0,2352,0.835459
 opendecisions,luna,2352,6,6,2346,0.818841
 opendecisions,anyjev_l0,2352,0,0,2352,0.609694
 opendecisions,semif,2352,0,0,2352,0.678571
 opendecisions,anyjev_l0_qwen3_8b,2352,0,0,2352,0.623724
+opendecisions,laya,2352,0,0,2352,0.43665
 fastdecisions,jev,255,0,0,255,0.427451
 fastdecisions,luna,255,0,0,255,0.423529
 fastdecisions,anyjev_l0,255,14,0,241,0.39834
 fastdecisions,semif,255,14,0,241,0.390041
 fastdecisions,anyjev_l0_qwen3_8b,255,14,0,241,0.406639
+fastdecisions,laya,255,0,0,255,0.407843

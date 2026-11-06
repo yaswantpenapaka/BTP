@@ -1,4 +1,4 @@
-﻿> **BTP update:** the main B.Tech Project evaluation (JevBench, OpenDecisions, Fast Decisions; Jev, Luna, AnyJev L0, SemIf) is in [eval/](eval/README.md). See the [root README](../README.md) for the overview and results. The earlier classification study below is kept as is.
+﻿> **BTP update:** the main B.Tech Project evaluation (JevBench, OpenDecisions, Fast Decisions; Jev, Luna, AnyJev L0 4B/8B, SemIf, Laya) is in [eval/](eval/README.md). See the [root README](../README.md) for the overview and results. The earlier classification study below is kept as is.
 
 # Decision models: Jev vs OpenAI Decisions
 
@@ -193,4 +193,3 @@ Logs go to `logs/run_<timestamp>.log`. Schema mismatches also save the raw respo
 Committed: the Python project, the tests, this README, every file in `outputs/` (the four result CSVs, the probability JSONL files, `analysis_summary.csv`, and the four analysis reports).
 
 Ignored, because they are caches or local secrets: `.env`, `.venv/`, `__pycache__/`, the Hugging Face download under `data/`, Arrow and dataset caches, and `logs/`. The root of the BTP repository ignores every other local folder, so this remote contains `Decision_Models` only.
-
